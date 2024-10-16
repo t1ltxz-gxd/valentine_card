@@ -17,8 +17,8 @@ This crate uses `#![forbid(unsafe_code)]` to ensure everything is implemented in
 ```
 git clone https://github.com/t1ltxz-gxd/valentine_card
 cd valentine_card
-cargo build
-/target/debug/valentine_card --name "YourName"
+cargo build --release
+/target/release/valentine_card --name "YourName"
 ```
 
 
