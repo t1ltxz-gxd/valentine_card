@@ -30,11 +30,14 @@ jobs:
         run: cargo build --verbose
       - name: Test
         run: cargo test --verbose
+      - name: Install Clippy
+        if: matrix.rust == '1.74.0'
+        run: rustup component add --toolchain 1.74.0-x86_64-unknown-linux-gnu clippy
       - name: Clippy
         if: matrix.rust == '1.74.0'
         run: cargo clippy --verbose -- -D warnings
       - name: Audit
-        if : matrix.rust == '1.74.0'
+        if: matrix.rust == '1.74.0'
         run: cargo audit
       - name: Deny
         if: matrix.rust == '1.74.0'
