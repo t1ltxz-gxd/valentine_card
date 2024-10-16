@@ -1,0 +1,8 @@
+pre-release-commit-message = ":bookmark: chore(release): version {{version}}"
+shared-version = true
+sign-commit = false
+tag-message = "{{version}}"
+tag-prefix = ""
+publish = false
+push = true
+tag = true
