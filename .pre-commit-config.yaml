@@ -1,0 +1,24 @@
+repos:
+  - repo: https://github.com/crate-ci/committed
+    rev: v1.0.20
+    hooks:
+      - id: committed
+        name: committed
+        description: Check that the commit message is formatted correctly
+  - repo: local
+    hooks:
+      - id: fmt
+        name: fmt
+        description: Format files with cargo fmt.
+        entry: cargo fmt
+        language: system
+        types: [ rust ]
+        args: [ "--all", "--", "--check" ]
+      - id: clippy
+        name: clippy
+        description: Lint rust sources
+        entry: cargo clippy
+        language: system
+        args: [ "--", "-W", "warnings" ]
+        types: [ rust ]
+        pass_filenames: false
