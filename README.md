@@ -10,6 +10,9 @@
 [![Powered by Rust](https://custom-icon-badges.herokuapp.com/badge/-Powered%20by%20Rust-0d1620?logo=rust)](https://python-poetry.org/ "Powered by Rust")
 ___
 
+## 🔒 Safety
+This crate uses `#![forbid(unsafe_code)]` to ensure everything is implemented in 100% safe Rust.
+
 ## 🧩 Installation
 ```
 git clone https://github.com/t1ltxz-gxd/valentine_card
