@@ -1,0 +1,41 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust:
+          - 1.74.0
+          - stable
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: true
+      - name: Install cargo-audit
+        run: cargo install cargo-audit
+      - name: install cargo-deny
+        run: cargo install cargo-deny
+      - name: Build
+        run: cargo build --verbose
+      - name: Test
+        run: cargo test --verbose
+      - name: Clippy
+        if: matrix.rust == '1.74.0'
+        run: cargo clippy --verbose -- -D warnings
+      - name: Audit
+        if : matrix.rust == '1.74.0'
+        run: cargo audit
+      - name: Deny
+        if: matrix.rust == '1.74.0'
+        run: cargo deny check
