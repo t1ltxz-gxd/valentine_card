@@ -1,4 +1,4 @@
-pre-release-commit-message = ":bookmark: chore(release): version {{version}}"
+pre-release-commit-message = ":rocket: chore(release): version {{version}}"
 shared-version = true
 sign-commit = false
 tag-message = "{{version}}"
