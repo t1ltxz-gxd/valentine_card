@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+issue_templates:
+  - name: "Bug Report"
+    description: "Report a bug to help us improve."
+    body: "bug_report.md"
+  - name: "Feature Request"
+    description: "Suggest a new feature for the project."
+    body: "feature_request.md"
+
+contact_links:
+  - name: 🙏 Q&A (GitHub Discussions)
+    url: https://github.com/t1ltxz-gxd/valentine_card/discussions/categories/q-a
