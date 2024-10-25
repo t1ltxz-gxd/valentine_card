@@ -1,58 +1,45 @@
 ---
-name: "Bug Report"
+name: "🐛 Bug Report"
 about: "Report a bug to help us improve."
 labels: [ "bug", "needs triage" ]
 ---
-body:
-- type: markdown
-  attributes:
-  value: |
-  ## Bug Report
+<!--
+Thank you for reporting an issue! Please complete as much of the template as possible.
+-->
 
-      Please fill out the following details to help us resolve the issue.
+- [ ] I’ve checked for any existing issues (including closed ones) related to this.
 
-- type: input
-  id: title
-  attributes:
-  label: "Title"
-  description: "A brief summary of the bug."
-  placeholder: "Enter the bug title here..."
+## Bug Report
 
-- type: textarea
-  id: description
-  attributes:
-  label: "Description"
-  description: "A detailed description of the bug."
-  placeholder: "Describe the bug in detail..."
-  value: ""
+### Version
 
-- type: textarea
-  id: steps
-  attributes:
-  label: "Steps to Reproduce"
-  description: "The steps to reproduce the bug."
-  placeholder: "1. Go to...\n2. Click on...\n3. See error..."
-  value: ""
+<!--
+List all versions of the valentine crates you're using. 
+The easiest way to gather this is by running cargo tree:
 
-- type: textarea
-  id: expected
-  attributes:
-  label: "Expected Behavior"
-  description: "What you expected to happen."
-  placeholder: "Describe the expected behavior..."
-  value: ""
+`cargo tree | grep valentine`
+-->
 
-- type: textarea
-  id: actual
-  attributes:
-  label: "Actual Behavior"
-  description: "What actually happened."
-  placeholder: "Describe what actually happened..."
-  value: ""
+### Platform
 
-- type: input
-  id: environment
-  attributes:
-  label: "Environment"
-  description: "The environment in which the bug occurred (e.g., OS, browser, version)."
-  placeholder: "Enter the environment details here..."
+<!---
+Output of `uname -a` (UNIX), or version and 32 or 64-bit (Windows)
+-->
+
+### Description
+
+<!--
+Enter the details of your issue below this comment.
+
+Here’s one way to organize the description:
+
+<short summary of the bug>
+
+I tried this code:
+
+<code sample that causes the bug>
+
+I expected to see this happen: <explanation>
+
+Instead, this happened: <explanation>
+-->

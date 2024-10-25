@@ -1,50 +1,26 @@
 ---
-name: "Feature Request"
+name: "✨ Feature Request"
 about: "Suggest a new feature or enhancement."
 labels: [ "enhancement", "feature request" ]
 ---
-body:
-- type: markdown
-  attributes:
-  value: |
-  ## Feature Request
+- [ ] I’ve checked for any existing issues (including closed ones) related to this.
 
-      Please provide the following details to help us understand your request.
+## Feature Request
 
-- type: input
-  id: title
-  attributes:
-  label: "Title"
-  description: "A brief summary of the feature request."
-  placeholder: "Enter the feature title here..."
+### Motivation
 
-- type: textarea
-  id: description
-  attributes:
-  label: "Description"
-  description: "A detailed description of the feature request."
-  placeholder: "Describe the feature in detail..."
-  value: ""
+<!--
+Explain the use case(s) or other reasons for the new feature.
+-->
 
-- type: textarea
-  id: motivation
-  attributes:
-  label: "Motivation"
-  description: "Explain why this feature is needed."
-  placeholder: "Describe the motivation behind this feature..."
-  value: ""
+### Proposal
 
-- type: textarea
-  id: alternatives
-  attributes:
-  label: "Alternatives"
-  description: "Describe any alternative solutions or features you've considered."
-  placeholder: "Describe any alternatives you've considered..."
-  value: ""
+<!--
+Describe how the new feature should be implemented and why. Mention any potential drawbacks.
+-->
 
-- type: input
-  id: additional_context
-  attributes:
-  label: "Additional Context"
-  description: "Any other context or information."
-  placeholder: "Enter any additional context here..."
+### Alternatives
+
+<!--
+Discuss other solutions you considered and their potential drawbacks. Explain why the proposed solution was chosen over these alternatives.
+-->
