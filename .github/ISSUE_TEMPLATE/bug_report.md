@@ -1,6 +1,8 @@
+---
 name: "Bug Report"
 description: "Report a bug to help us improve."
 labels: [ "bug", "needs triage" ]
+---
 body:
 - type: markdown
   attributes:
