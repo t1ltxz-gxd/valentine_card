@@ -33,6 +33,9 @@ pub fn heart_builder(name: &str, color: Option<&str>) -> ColoredString {
 		}
 	});
 
+	let name_chars: Vec<char> = name.chars().collect();
+	let name_len = name_chars.len();
+
 	for y in (-15..15).rev() {
 		for x in -30..30 {
 			let formula = (y as f64 * 0.1).mul_add(y as f64 * 0.1, (x as f64 * 0.05).powi(2)) - 1.0;
@@ -41,8 +44,8 @@ pub fn heart_builder(name: &str, color: Option<&str>) -> ColoredString {
 				.mul_add(-(y as f64 * 0.1).powi(3), formula.powi(3))
 				<= 0.0
 			{
-				let idx = ((x - y) % name.len() as i32).unsigned_abs() as usize;
-				let mut ch = name.chars().nth(idx).unwrap().to_string();
+				let idx = ((x - y) % name_len as i32).unsigned_abs() as usize;
+				let mut ch = name_chars[idx].to_string();
 				if let Some(color) = color {
 					ch = ch.color(color).to_string();
 				}
