@@ -1,0 +1,27 @@
+body:
+  name: "Q&A"
+  description: "Ask questions and get answers from the community."
+  labels: [ "question", "discussion" ]
+  body:
+    - type: markdown
+      attributes:
+        value: |
+          ## Question
+
+          <!-- Ask your question here. -->
+
+    - type: textarea
+      id: question
+      attributes:
+        label: "Question"
+        description: "Describe your question in detail."
+        placeholder: "Type your question here..."
+        value: ""
+
+    - type: textarea
+      id: context
+      attributes:
+        label: "Context"
+        description: "Provide any additional context or information."
+        placeholder: "Type any additional context here..."
+        value: ""
