@@ -17,3 +17,8 @@ build:
 release:
 	@echo "Building release..."
 	cargo build --release
+
+changelog:
+	@echo "Generating changelog..."
+	git cliff --config detailed > CHANGELOG.md
+	@echo "Done."

@@ -13,3 +13,8 @@ web-sys = { version = "0.3.72", features = ["Window", "console", "Document", "El
 
 [lib]
 crate-type = ["cdylib"]
+
+[package.metadata.git-cliff.git]
+conventional_commits = true
+commit_parsers = []
+filter_commits = false
