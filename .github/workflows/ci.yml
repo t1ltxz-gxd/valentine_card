@@ -10,8 +10,9 @@ jobs:
     strategy:
       matrix:
         rust:
-          - 1.74.0
           - stable
+          - beta
+          - nightly
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
