@@ -25,6 +25,7 @@ body = """
         - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
             {% if commit.breaking %}[**breaking**] {% endif %}\
             {{ commit.message | upper_first }}\
+            ([{{ commit.hash | truncate(length=7, end="") }}](<REPO>/commit/{{ commit.hash }}))
     {% endfor %}
 {% endfor %}\n
 """
