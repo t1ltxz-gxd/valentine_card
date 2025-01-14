@@ -57,6 +57,10 @@ commit_preprocessors = [
   # Check spelling of the commit with https://github.com/crate-ci/typos
   # If the spelling is incorrect, it will be automatically fixed.
   #{ pattern = '.*', replace_command = 'typos --write-changes -' },
+  {pattern = '\((\w+\s)?#([0-9]+)\)', replace = "([#${2}](<REPO>/issues/${2}))"}, # replace issue numbers (Note the PR is also an issue in GitHub, so this will also link to PRs)
+  {pattern = ' +$', replace = ""}, # Remove trailing whitespace.
+  {pattern = ' +', replace = " "}, # Replace multiple spaces with a single space.
+  {pattern = ' *(:\w+:|[\p{Emoji_Presentation}\p{Extended_Pictographic}](?:\u{FE0F})?\u{200D}?) *', replace = ""}, # Remove gitmoji, both actual UTF emoji and :emoji:
 ]
 # regex for parsing and grouping commits
 commit_parsers = [
