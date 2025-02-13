@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.3.1](https://github.com/t1ltxz-gxd/valentine_card/compare/v0.3.0..0.3.1) - 2025-01-14
+## [0.3.2](https://github.com/t1ltxz-gxd/valentine_card/compare/v0.3.1..0.3.2) - 2025-02-13
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+- Add instructions for running the application in the browser using wasm-pack. - ([029ee9f](https://github.com/t1ltxz-gxd/valentine_card/commit/029ee9f7bb5e9426303c760e7de33662e8c5b251))
+
+## [0.3.1](https://github.com/t1ltxz-gxd/valentine_card/compare/v0.3.0..v0.3.1) - 2025-01-14
 
 ### <!-- 0 -->🚀 Features
 
@@ -12,6 +18,7 @@ All notable changes to this project will be documented in this file.
 
 - Update repository URL in postprocessors configuration. - ([7e1ed55](https://github.com/t1ltxz-gxd/valentine_card/commit/7e1ed554508497a196178ecf849faf00633890e2))
 - Update versioning format to include previous version links in the changelog. - ([8aece6a](https://github.com/t1ltxz-gxd/valentine_card/commit/8aece6a8edb348a1f34eaecc978caf1b8cae790c))
+- Version 0.3.1 - ([824f1c7](https://github.com/t1ltxz-gxd/valentine_card/commit/824f1c7aa89df236b2e78e2ad93dcd3ab4d1853d))
 
 ## [0.3.0](https://github.com/t1ltxz-gxd/valentine_card/compare/v0.2.1..v0.3.0) - 2025-01-14
 
