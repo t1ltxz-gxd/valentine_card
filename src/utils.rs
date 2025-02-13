@@ -35,6 +35,7 @@ pub fn heart_builder(name: &str, color: Option<&str>) -> ColoredString {
 
 	let name_chars: Vec<char> = name.chars().collect();
 	let name_len = name_chars.len();
+	let mut name_idx = 0;
 
 	for y in (-15..15).rev() {
 		for x in -30..30 {
@@ -44,12 +45,12 @@ pub fn heart_builder(name: &str, color: Option<&str>) -> ColoredString {
 				.mul_add(-(y as f64 * 0.1).powi(3), formula.powi(3))
 				<= 0.0
 			{
-				let idx = ((x - y) % name_len as i32).unsigned_abs() as usize;
-				let mut ch = name_chars[idx].to_string();
+				let mut ch = name_chars[name_idx % name_len].to_string();
 				if let Some(color) = color {
 					ch = ch.color(color).to_string();
 				}
 				heart = ColoredString::from(heart.to_string() + &ch);
+				name_idx += 1;
 			} else {
 				heart = ColoredString::from(heart.to_string() + " ");
 			}
