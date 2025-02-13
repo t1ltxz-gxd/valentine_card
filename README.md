@@ -21,6 +21,14 @@ cargo build --release
 /target/release/valentine_card --name "YourName"
 ```
 
+## 🌎 Running in Browser
+```
+cargo install wasm-pack
+wasm-pack build --target web
+python3 -m http.server
+```
+Enter name in the input field and click on the button to see the magic in dev's console.
+
 
 ## 🤝 Contributing
 
