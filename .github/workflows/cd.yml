@@ -1,0 +1,175 @@
+name: Continuous Deployment
+
+on:
+  workflow_run:
+    workflows: [Continuous Integration]
+    types:
+      - completed
+    branches:
+      - main
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    if: |
+      (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) ||
+      (github.event_name == 'workflow_run' && startsWith(github.event.workflow_run.head_branch, 'v'))
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from Cargo.toml
+        id: get-version
+        run: |
+          VERSION=$(grep '^version =' Cargo.toml | head -n 1 | awk -F '"' '{print $2}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Extract changelog for current version
+        id: extract-changelog
+        run: |
+          VERSION="${{ steps.get-version.outputs.version }}"
+          # Extract changelog between the current version header and the next header or EOF
+          CHANGELOG=$(awk -v ver="## $VERSION" '
+          BEGIN { found=0; }
+          $0 ~ "^" ver { found=1; next; }
+          found && $0 ~ /^## / { exit; }
+          found { print; }
+          ' CHANGELOG.md)
+          # Properly format the changelog for GitHub Actions output
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "changelog=$CHANGELOG" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/valentine_card:latest,${{ secrets.DOCKER_USERNAME }}/valentine_card:${{ steps.get-version.outputs.version }},${{ secrets.DOCKER_USERNAME }}/valentine_card:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/valentine_card:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/valentine_card:buildcache,mode=max
+
+  build-linux:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-unknown-linux-gnu
+          override: true
+          cache: true
+          components: rustfmt,clippy
+
+      - name: Build binary
+        run: cargo build --release --target x86_64-unknown-linux-gnu
+
+      - name: Package binary
+        run: |
+          mkdir -p dist
+          BIN_NAME="valentine_card"
+          FILE_NAME="${BIN_NAME}-x86_64-unknown-linux-gnu"
+          tar -czvf "dist/$FILE_NAME.tar.gz" -C "target/x86_64-unknown-linux-gnu/release" "$BIN_NAME"
+
+      - name: Upload binaries to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          tag_name: v${{ needs.deploy.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  build-windows:
+    needs: deploy
+    runs-on: windows-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-pc-windows-gnu
+          override: true
+          cache: true
+          components: rustfmt,clippy
+
+      - name: Install MinGW-w64
+        run: |
+          choco install mingw -y
+          echo "C:\ProgramData\chocolatey\bin" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: Build binary
+        run: cargo build --release --target x86_64-pc-windows-gnu
+
+      - name: Package binary
+        run: |
+          $BIN_NAME = "valentine_card"
+          $FILE_NAME = "$BIN_NAME-x86_64-pc-windows-gnu"
+          mkdir dist
+          Compress-Archive -Path "target\x86_64-pc-windows-gnu\release\$BIN_NAME.exe" -DestinationPath "dist\$FILE_NAME.zip"
+
+      - name: Upload binaries to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          tag_name: v${{ needs.deploy.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  build-macos:
+    needs: deploy
+    runs-on: macos-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-apple-darwin
+          override: true
+          cache: true
+          components: rustfmt,clippy
+
+      - name: Build binary
+        run: cargo build --release --target x86_64-apple-darwin
+
+      - name: Package binary
+        run: |
+          mkdir -p dist
+          BIN_NAME="valentine_card"
+          FILE_NAME="${BIN_NAME}-x86_64-apple-darwin"
+          tar -czvf "dist/$FILE_NAME.tar.gz" -C "target/x86_64-apple-darwin/release" "$BIN_NAME"
+
+      - name: Upload binaries to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          tag_name: v${{ needs.deploy.outputs.version }}
+          body: ${{ needs.deploy.outputs.changelog }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
