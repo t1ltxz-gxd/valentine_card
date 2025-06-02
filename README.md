@@ -9,9 +9,9 @@
 [![License](https://custom-icon-badges.demolab.com/github/license/t1ltxz-gxd/valentine_card?logo=law)](https://github.com/DenverCoder1/custom-icon-badges/blob/main/LICENSE?rgh-link-date=2023-03-15T18%3A10%3A26Z "license MIT")
 [![Powered by Rust](https://custom-icon-badges.herokuapp.com/badge/-Powered%20by%20Rust-0d1620?logo=rust)](https://www.rust-lang.org/ "Powered by Rust")
 ___
-
 ## 🔒 Safety
 This crate uses `#![forbid(unsafe_code)]` to ensure everything is implemented in 100% safe Rust.
+---
 
 ## 🧩 Installation
 ```
@@ -21,6 +21,10 @@ cargo build --release
 /target/release/valentine_card --name "YourName"
 ```
 
+___
+## 🌐 Deployment
+Run `docker run --rm -it t1ltxz/valentine_card:latest`.
+---
 ## 🌎 Running in Browser
 ```
 cargo install wasm-pack
@@ -29,7 +33,7 @@ python3 -m http.server
 ```
 Enter name in the input field and click on the button to see the magic in dev's console.
 
-
+---
 ## 🤝 Contributing
 
 Contributions are what make the open source community an amazing place to learn, be inspired, and create.
