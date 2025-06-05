@@ -23,7 +23,7 @@ cargo build --release
 
 ___
 ## 🌐 Deployment
-Run `docker run --rm -it t1ltxz/valentine_card:latest`.
+Run `docker run --rm -it t1ltxz/valentine_card:latest -n <NAME>`.
 ---
 ## 🌎 Running in Browser
 ```
