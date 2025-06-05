@@ -62,9 +62,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/valentine_card:latest,${{ secrets.DOCKER_USERNAME }}/valentine_card:${{ steps.get-version.outputs.version }},${{ secrets.DOCKER_USERNAME }}/valentine_card:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/valentine_card:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/valentine_card:buildcache,mode=max
+          tags: ${{ secrets.DOCKER_USERNAME }}/valentine:latest,${{ secrets.DOCKER_USERNAME }}/valentine:${{ steps.get-version.outputs.version }},${{ secrets.DOCKER_USERNAME }}/valentine:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/valentine:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/valentine:buildcache,mode=max
 
   build-linux:
     needs: deploy
