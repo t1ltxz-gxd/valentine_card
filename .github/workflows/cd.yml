@@ -88,7 +88,7 @@ jobs:
       - name: Package binary
         run: |
           mkdir -p dist
-          BIN_NAME="valentine_card"
+          BIN_NAME="valentine"
           FILE_NAME="${BIN_NAME}-x86_64-unknown-linux-gnu"
           tar -czvf "dist/$FILE_NAME.tar.gz" -C "target/x86_64-unknown-linux-gnu/release" "$BIN_NAME"
 
@@ -126,7 +126,7 @@ jobs:
 
       - name: Package binary
         run: |
-          $BIN_NAME = "valentine_card"
+          $BIN_NAME = "valentine"
           $FILE_NAME = "$BIN_NAME-x86_64-pc-windows-gnu"
           mkdir dist
           Compress-Archive -Path "target\x86_64-pc-windows-gnu\release\$BIN_NAME.exe" -DestinationPath "dist\$FILE_NAME.zip"
@@ -161,7 +161,7 @@ jobs:
       - name: Package binary
         run: |
           mkdir -p dist
-          BIN_NAME="valentine_card"
+          BIN_NAME="valentine"
           FILE_NAME="${BIN_NAME}-x86_64-apple-darwin"
           tar -czvf "dist/$FILE_NAME.tar.gz" -C "target/x86_64-apple-darwin/release" "$BIN_NAME"
 
