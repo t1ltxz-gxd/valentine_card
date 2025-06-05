@@ -11,8 +11,6 @@
     {
       devShells.default = pkgs.mkShell {
         buildInputs = [
-          pkgs.nodejs
-          pkgs.nodePackages.typescript
           pkgs.rustc
           pkgs.cargo
         ];

@@ -4,8 +4,6 @@ pkgs.stdenv.mkDerivation {
   name = "valentine";
 
   buildInputs = [
-    pkgs.nodejs
-    pkgs.nodePackages.typescript
     pkgs.rustc
     pkgs.cargo
   ];
